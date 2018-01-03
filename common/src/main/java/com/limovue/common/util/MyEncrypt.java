@@ -91,9 +91,9 @@ public class MyEncrypt {
         return mac.doFinal(data);
     }
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         System.out.println(MyEncrypt.initMacKey());
 
         System.out.println("args = [BOS7AMZ+idWkXRzK7kV8P91utMw/P/icrR42bSOxlgits1tRvW8qUSaJHXOTNOmpey+YTZGkVR4vIMYKJpEfmg==]");
-    }
+    }*/
 }

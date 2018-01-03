@@ -42,7 +42,7 @@ public class GeoLocationUtil {
         return d;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         //根据两点间的经纬度计算距离，单位：km
         System.out.println(GetDistance(116.5542, 39.81621, 116.5539, 39.81616));
         System.out.println(GetDistance(117.1181, 36.68484, 117.01, 36.66123));
@@ -50,5 +50,5 @@ public class GeoLocationUtil {
         System.out.println(GetDistance(121.5373, 38.86827, 121.5372, 38.86832));
         System.out.println(GetDistance(20.5, 118.2, 21.1, 117.6));
         System.out.println(GetDistance(121.445140, 31.177779, 121.444832, 31.179313));
-    }
+    }*/
 }

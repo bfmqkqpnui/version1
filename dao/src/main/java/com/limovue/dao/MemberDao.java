@@ -1,7 +1,6 @@
 package com.limovue.dao;
 
 import com.limovue.domain.MemberTable;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.data.jpa.repository.JpaRepository;

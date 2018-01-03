@@ -96,7 +96,7 @@ public class AESUtil {
         return null;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         String s = "{\"say\":\"hello\",\"content\":\"您好\"}";
 
         System.out.println("s:" + s);
@@ -107,5 +107,5 @@ public class AESUtil {
         System.out.println("s2:" + AESUtil.decrypt(s1, "1234"));
 
 
-    }
+    }*/
 }

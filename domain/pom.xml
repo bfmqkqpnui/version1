@@ -26,33 +26,23 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.limovue</groupId>
-            <artifactId>Api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
+        <!-- 配置java版本 不配置的话默认父类配置的是1.6-->
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
             </plugin>
         </plugins>
-
-        <!-- 配置java版本 不配置的话默认父类配置的是1.6-->
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>
