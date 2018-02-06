@@ -4,6 +4,7 @@ import com.limovue.common.ReturnDTO;
 import com.limovue.common.constans.CommonConstans;
 import com.limovue.domain.MemberTable;
 import com.limovue.service.MemberService;
+import org.apache.catalina.security.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,20 +39,26 @@ public class HomeController {
      * @return com.lance.domain.ReturnDTO
      */
     @RequestMapping(value = "/member/login")
-    public ReturnDTO login(String loginId, String loginPwd){
+    public ReturnDTO login(String userName, String passWord){
         logger.info("用户登录 开始");
         long beginTime = System.currentTimeMillis();
         ReturnDTO dto = new ReturnDTO();
         dto.setSuccess(false);
-        if(StringUtils.isNotBlank(loginId) && StringUtils.isNotBlank(loginPwd)){
+        if(StringUtils.isNotBlank(userName) && StringUtils.isNotBlank(passWord)){
             Map<String,Object> param = new HashMap<String,Object>();
-            param.put("loginid",loginId);
-            param.put("pwd",loginPwd);
+            param.put("loginid",userName);
+            param.put("pwd",passWord);
 
-            MemberTable member = memberService.login(param);
+            MemberTable member = null;
+            try {
+                member = memberService.login(param);
+            } catch (Exception e) {
+               logger.error("用户登录失败:",e);
+            }
             if(null != member){
                 System.out.println("========================================");
                 //创建令牌
+
                 dto.setObj(member);
                 dto.setSuccess(true);
                 dto.setResCode("200");

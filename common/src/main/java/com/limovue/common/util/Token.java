@@ -20,10 +20,6 @@ public class Token {
      * 登录用户名
      */
     private String memberId;
-    /**
-     * 登录密码
-     */
-    private String pwd;
 
     public String getSignature() {
         return signature;
@@ -57,11 +53,4 @@ public class Token {
         this.memberId = memberId;
     }
 
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
 }

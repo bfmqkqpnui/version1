@@ -1,15 +1,18 @@
 package com.limovue.common.util;
 
-import org.apache.commons.codec.binary.Base64;
+
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Random;
 
 /**
  * 加密工具类
@@ -17,95 +20,90 @@ import java.util.logging.Logger;
 public class AESUtil {
     private static final String KEY_ALGORITHM = "AES";
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";//默认的加密算法
+    private static final String DEFAULT_CHARSET = "UTF-8";
 
-    /**
-     * AES 加密操作
-     *
-     * @param content  待加密内容
-     * @param password 加密密码
-     * @return 返回Base64转码后的加密数据
-     */
-    public static String encrypt(String content, String password) {
+    public static void main(String[] args) {
+        // 密钥的种子，可以是任何形式，本质是字节数组
+        String strKey = getStrKey();
+        System.out.println(strKey);
+        // 密钥数据byte[]\byte[]
+        byte[] seed = null;
         try {
-            Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);// 创建密码器
-
-            byte[] byteContent = content.getBytes("utf-8");
-
-            cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(password));// 初始化为加密模式的密码器
-
-            byte[] result = cipher.doFinal(byteContent);// 加密
-
-            return Base64.encodeBase64String(result);//通过Base64转码返回
-        } catch (Exception ex) {
-            Logger.getLogger(AESUtil.class.getName()).log(Level.SEVERE, null, ex);
+            seed = strKey.getBytes(DEFAULT_CHARSET);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-
-        return null;
     }
 
-    /**
-     * AES 解密操作
-     *
-     * @param content
-     * @param password
-     * @return
-     */
-    public static String decrypt(String content, String password) {
+    // 加密
+    public static String Encrypt(String sSrc, String sKey) throws Exception {
+        if (sKey == null) {
+            System.out.print("Key为空null");
+            return null;
+        }
+        // 判断Key是否为16位
+        if (sKey.length() != 16) {
+            System.out.print("Key长度不是16位");
+            return null;
+        }
+        byte[] raw = sKey.getBytes();
+        SecretKeySpec skeySpec = new SecretKeySpec(raw, KEY_ALGORITHM);
+        Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);//"算法/模式/补码方式"
+        IvParameterSpec iv = new IvParameterSpec("0102030405060708".getBytes());//使用CBC模式，需要一个向量iv，可增加加密算法的强度
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+        byte[] encrypted = cipher.doFinal(sSrc.getBytes());
 
+        return new BASE64Encoder().encode(encrypted);//此处使用BASE64做转码功能，同时能起到2次加密的作用。
+    }
+
+    // 解密
+    public static String decrypt(String sSrc, String sKey) throws Exception {
         try {
-            //实例化
+            // 判断Key是否正确
+            if (sKey == null) {
+                System.out.print("Key为空null");
+                return null;
+            }
+            // 判断Key是否为16位
+            if (sKey.length() != 16) {
+                System.out.print("Key长度不是16位");
+                return null;
+            }
+            byte[] raw = sKey.getBytes(DEFAULT_CHARSET);
+            SecretKeySpec skeySpec = new SecretKeySpec(raw, KEY_ALGORITHM);
             Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);
-
-            //使用密钥初始化，设置为解密模式
-            cipher.init(Cipher.DECRYPT_MODE, getSecretKey(password));
-
-            //执行操作
-            byte[] result = cipher.doFinal(Base64.decodeBase64(content));
-
-            return new String(result, "utf-8");
+            IvParameterSpec iv = new IvParameterSpec("0102030405060708"
+                    .getBytes());
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+            byte[] encrypted1 = new BASE64Decoder().decodeBuffer(sSrc);//先用base64解密
+            try {
+                byte[] original = cipher.doFinal(encrypted1);
+                String originalString = new String(original);
+                return originalString;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return null;
+            }
         } catch (Exception ex) {
-            Logger.getLogger(AESUtil.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.toString());
+            return null;
         }
-
-        return null;
     }
 
     /**
-     * 生成加密秘钥
+     * 获取密钥
      *
      * @return
      */
-    private static SecretKeySpec getSecretKey(final String password) {
-        //返回生成指定算法密钥生成器的 KeyGenerator 对象
-        KeyGenerator kg = null;
-
-        try {
-            kg = KeyGenerator.getInstance(KEY_ALGORITHM);
-
-            //AES 要求密钥长度为 128
-            kg.init(128, new SecureRandom(password.getBytes()));
-
-            //生成一个密钥
-            SecretKey secretKey = kg.generateKey();
-
-            return new SecretKeySpec(secretKey.getEncoded(), KEY_ALGORITHM);// 转换为AES专用密钥
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(AESUtil.class.getName()).log(Level.SEVERE, null, ex);
+    private static String getStrKey() {
+        String key = null;
+        String serList = "abcdef1234567890ABCDEF";
+        Integer keyLength = 16;
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < keyLength; i++) {
+            sb.append(serList.charAt(random.nextInt(serList.length())));
         }
-
-        return null;
+        return sb.toString();
     }
-
-    /*public static void main(String[] args) {
-        String s = "{\"say\":\"hello\",\"content\":\"您好\"}";
-
-        System.out.println("s:" + s);
-
-        String s1 = AESUtil.encrypt(s, "1234");
-        System.out.println("s1:" + s1);
-
-        System.out.println("s2:" + AESUtil.decrypt(s1, "1234"));
-
-
-    }*/
 }
