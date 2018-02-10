@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/dev?characterEncoding=utf8
     username: root
-    password: 1234
+    password: root
     type: com.alibaba.druid.pool.DruidDataSource
     # 下面为连接池的补充设置，应用到上面所有数据源中
     initialSize: 5
@@ -47,3 +47,9 @@ spring:
   #config-location: classpath:mybatis/mybatis-config.xml
   #mapper-locations: com.limo_vue.dao
   #mapper-locations: com.limo_vue.dao
+
+  #logback配置
+logging:
+  #定义日志文件的存储地址
+  file: log.log
+  #config: classpath:logback-dev.xml

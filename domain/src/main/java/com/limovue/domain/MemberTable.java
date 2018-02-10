@@ -1,11 +1,9 @@
 package com.limovue.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity(name="t_member")
+@Entity
+@Table(name = "t_member")
 public class MemberTable {
     @Id
     @GeneratedValue
