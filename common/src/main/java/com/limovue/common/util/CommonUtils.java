@@ -141,6 +141,13 @@ public class CommonUtils {
         for (int i = 0; i < att.length; i++) {
             System.out.print(att[i] + " ");
         }
+
+
+        Arrays.sort(att);
+        System.out.println("");
+        for (int i = 0; i < att.length; i++) {
+            System.out.print(att[i] + " ");
+        }
         System.out.println("");
         Integer max = fingMinOrMax(att, MathType.MAX);
         Integer min = fingMinOrMax(att, MathType.MIN);

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.emp.dao.EmployeeDao">
+    <sql id="Employee_Column_List">
+      id,name,gender,birthday,email,remark
+    </sql>
+    <select id="findAll" resultType="com.emp.domain.Employee">
+        SELECT
+        <include refid="Employee_Column_List"></include>
+        FROM employee WHERE 1 = 1
+    </select>
+
+    <!--<update id="updateByParams" parameterMap="com.emp.vo.QueryEmpParams">
+        UPDATE employee
+        <set>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="gender != null">
+                gender = #{gender}
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday}
+            </if>
+            <if test="email != null">
+                email = #{email}
+            </if>
+            <if test="remark != null">
+                remark = #{remark}
+            </if>
+        </set>
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </update>-->
+</mapper>

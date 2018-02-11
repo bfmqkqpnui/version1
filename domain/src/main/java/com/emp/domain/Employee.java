@@ -1,10 +1,11 @@
 package com.emp.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name="employee")
-public class Employee {
+@Table(name = "employee")
+public class Employee implements Serializable {
     /**
      * 职员编号
      */

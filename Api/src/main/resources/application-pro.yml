@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/pro?characterEncoding=utf8
     username: root
-    password: root
+    password: 1234
     type: com.alibaba.druid.pool.DruidDataSource
     # 下面为连接池的补充设置，应用到上面所有数据源中
     initialSize: 5
@@ -28,12 +28,12 @@ spring:
     logSlowSql: true
     #访问：http://localhost:port/domain/druid/login.html 进行登录访问。
   #JPA配置
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    database: mysql
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL5Dialect
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#    database: mysql
 
   jackson:
     serialization:

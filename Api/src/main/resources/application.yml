@@ -1,25 +1,25 @@
 #服务器端口号
-server:
-    port: 9091
+#server:
+#    port: 9091
 
 #数据源基本配置信息
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/limo_vue?characterEncoding=utf8
-    username: root
-    password: 1234
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/limo_vue?characterEncoding=utf8
+#    username: root
+#    password: 1234
 
   #JPA配置
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-
-  jackson:
-    serialization:
-      indent_output: false
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL5Dialect
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#
+#  jackson:
+#    serialization:
+#      indent_output: false
 
   #当前环境
   profiles:

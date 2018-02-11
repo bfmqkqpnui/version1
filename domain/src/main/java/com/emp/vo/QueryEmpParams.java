@@ -1,4 +1,4 @@
-package com.emp.domain;
+package com.emp.vo;
 
 /**
  * 查询职员所需要的参数

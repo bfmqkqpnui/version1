@@ -1,8 +1,9 @@
 package com.limovue.controller;
 
 import com.emp.domain.Employee;
-import com.emp.domain.QueryEmpParams;
 import com.emp.service.EmpService;
+import com.emp.service.EmployeeService;
+import com.emp.vo.QueryEmpParams;
 import com.limovue.common.ReturnDTO;
 import com.limovue.common.util.CommonUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class EmployeeController {
 
     @Autowired
-    private EmpService empService;
+    private EmployeeService service;
 
     /**
      * 查询所有职员信息
@@ -31,7 +32,7 @@ public class EmployeeController {
         ReturnDTO dto = new ReturnDTO();
         dto.setSuccess(false);
 
-        List<Employee> empList = empService.queryAll();
+        List<Employee> empList = service.queryAll();
 
         if (CommonUtils.isExist(empList)) {
             dto.setSuccess(true);
@@ -80,7 +81,7 @@ public class EmployeeController {
                     param.put("name", name);
                 }
 
-                List<Employee> emps = empService.queryByParams(param);
+                List<Employee> emps = service.queryByParams(param);
 
                 if (CommonUtils.isExist(emps)) {
                     dto.setSuccess(true);
@@ -91,8 +92,8 @@ public class EmployeeController {
                     dto.setErrMsg("未查询到数据");
                 }
             }
-        }else{
-            List<Employee> empList = empService.queryAll();
+        } else {
+            List<Employee> empList = service.queryAll();
             if (CommonUtils.isExist(empList)) {
                 dto.setSuccess(true);
                 dto.setResCode("200");

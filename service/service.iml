@@ -64,6 +64,6 @@
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.4.1" level="project" />
     <orderEntry type="module" module-name="common" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
-    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.46" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.32" level="project" />
   </component>
 </module>

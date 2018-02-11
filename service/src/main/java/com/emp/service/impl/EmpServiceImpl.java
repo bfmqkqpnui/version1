@@ -1,3 +1,4 @@
+/*
 package com.emp.service.impl;
 
 import com.emp.domain.Employee;
@@ -31,3 +32,4 @@ public class EmpServiceImpl implements EmpService {
     }
 
 }
+*/
