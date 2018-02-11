@@ -3,15 +3,13 @@ package com.limovue.domain;
 
 import com.limovue.common.util.Md5Utils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 管理员表
  */
-@Entity(name = "t_admin")
+@Entity
+@Table(name = "t_admin")
 public class Admin {
 
     @Id
