@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @MapperScan(basePackages = {"com.emp.dao","com.limovue.dao"})
-@ComponentScan(basePackages = {"com.limovue.controller", "com.limovue.service", "com.emp.service"})
+@ComponentScan(basePackages = {"com.limovue.controller", "com.limovue.service", "com.emp.service","com.limovue.aop"})
 @EntityScan(basePackages = {"com.limovue.domain", "com.emp.domain"})
 //启注解事务管理
 @EnableTransactionManagement

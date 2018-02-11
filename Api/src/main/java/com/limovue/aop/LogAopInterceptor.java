@@ -1,5 +1,6 @@
 package com.limovue.aop;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -20,6 +21,7 @@ public class LogAopInterceptor {
      */
     private static final Logger logger = LoggerFactory.getLogger(LogAopInterceptor.class);
 
+    private long beginTime;
     /**
      * 定义拦截规则：拦截com.limovue.controller包下面的所有类中，有@RequestMapping注解的方法。
      */
@@ -33,29 +35,37 @@ public class LogAopInterceptor {
      * @param pjp
      * @return
      */
-    @Around("controllerMethodPointcut()")
-    public void aroundInterceptor(ProceedingJoinPoint pjp) {
+    /*@Around("controllerMethodPointcut()")
+    public Object aroundInterceptor(ProceedingJoinPoint pjp) {
         long beginTime = System.currentTimeMillis();
+        Object obj = null;
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod(); //获取被拦截的方法
         String methodName = method.getName(); //获取被拦截的方法名
         Set<Object> allParams = new LinkedHashSet<>(); //保存所有请求参数，用于输出到日志中
-        logger.info("环绕拦截器请求开始，方法：{}", methodName);
-    }
+        logger.info(method + "环绕拦截器请求开始，方法：{}", methodName);
+        try {
+            obj = pjp.proceed();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return obj;
+    }*/
 
     @Before("controllerMethodPointcut()")
-    public void beforeInterceptor(ProceedingJoinPoint pjp) {
+    public void beforeInterceptor(JoinPoint pjp) {
+        beginTime = System.currentTimeMillis();
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod(); //获取被拦截的方法
         String methodName = method.getName(); //获取被拦截的方法名
-        logger.info("请求开始之前拦截，方法：{}", methodName);
+        logger.info("开始请求[" + method.getDeclaringClass().getName() +"]类的【"+methodName+"】方法");
     }
 
     @After("controllerMethodPointcut()")
-    public void afterInterceptor(ProceedingJoinPoint pjp) {
+    public void afterInterceptor(JoinPoint pjp) {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod(); //获取被拦截的方法
         String methodName = method.getName(); //获取被拦截的方法名
-        logger.info("请求开始之后拦截，方法：{}", methodName + "<<<>>>" + method);
+        logger.info("完成请求[" + method.getDeclaringClass().getName() +"]类的【"+methodName+"】方法，耗时["+(System.currentTimeMillis()-beginTime)+"]毫秒");
     }
 }
