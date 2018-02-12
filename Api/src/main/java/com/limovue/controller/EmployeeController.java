@@ -6,10 +6,12 @@ import com.emp.service.EmployeeService;
 import com.emp.vo.QueryEmpParams;
 import com.limovue.common.ReturnDTO;
 import com.limovue.common.util.CommonUtils;
+import com.limovue.common.util.JedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -27,7 +29,7 @@ public class EmployeeController {
      *
      * @return
      */
-    @RequestMapping("/emp/queryAll")
+    @RequestMapping(value = "/emp/queryAll", method = {RequestMethod.GET, RequestMethod.POST})
     public ReturnDTO queryAllEmployee() {
         ReturnDTO dto = new ReturnDTO();
         dto.setSuccess(false);
@@ -42,7 +44,7 @@ public class EmployeeController {
             dto.setResCode("801");
             dto.setErrMsg("数据库中未查询到相关数据");
         }
-
+        //JedisUtil.getJedis();
         return dto;
     }
 
@@ -103,6 +105,7 @@ public class EmployeeController {
                 dto.setErrMsg("数据库中未查询到相关数据");
             }
         }
+
         return dto;
     }
 }

@@ -9,8 +9,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@MapperScan(basePackages = {"com.emp.dao","com.limovue.dao"})
-@ComponentScan(basePackages = {"com.limovue.controller", "com.limovue.service", "com.emp.service","com.limovue.aop"})
+@MapperScan(basePackages = {"com.emp.dao", "com.limovue.dao"})
+@ComponentScan(basePackages = {
+        "com.limovue.controller",
+        "com.limovue.service",
+        "com.emp.service",
+        "com.limovue.aop",
+        "com.limovue.propertiesClass",
+        "com.limovue.common.propertiesClass"})
 @EntityScan(basePackages = {"com.limovue.domain", "com.emp.domain"})
 //启注解事务管理
 @EnableTransactionManagement

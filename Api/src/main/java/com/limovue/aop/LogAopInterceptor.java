@@ -9,12 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 
 @Aspect         //通过注解申明一个切面
-@Component      //让这个切面成为spring容器管理的bean
+//@Component      //让这个切面成为spring容器管理的bean
 public class LogAopInterceptor {
     /**
      * 日志
