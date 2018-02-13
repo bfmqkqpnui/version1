@@ -23,8 +23,8 @@ public class JedisUtil {
     //日志
     private static Logger logger = LoggerFactory.getLogger(JedisUtil.class);
 
-    @Autowired
-    private static RedisProperties redisProperties;
+    private static final String HOST = "127.0.0.1";
+    private static final Integer PORT = 6379;
 
     /**
      * 获取连接
@@ -32,19 +32,17 @@ public class JedisUtil {
      * @return
      */
     public static Jedis getJedis() {
-        String key = redisProperties.getHost() + ":" + redisProperties.getPort();
-        logger.info("redis 信息:"+redisProperties.getHost()+"<<<>>>"+redisProperties.getPort());
+        String key = HOST + ":" + PORT;
+        logger.info("redis 信息:" + HOST + "<<<>>>" + PORT);
         JedisPool pool = null;
         if (!maps.containsKey(key)) {
-
             JedisPoolConfig config = new JedisPoolConfig();
             config.setMaxIdle(200);
             config.setMaxTotal(300);
             config.setTestOnBorrow(false);
             config.setTestOnReturn(false);
-            pool = new JedisPool(config, redisProperties.getHost(), redisProperties.getPort(), 3000, redisProperties.getPassword());
+            pool = new JedisPool(config, HOST, PORT, 3000);
             maps.put(key, pool);
-
         } else {
             pool = maps.get(key);
         }
@@ -66,7 +64,7 @@ public class JedisUtil {
         jds.expire(key, 30 * 60);
         jds.close();
 
-        logger.error("JedisUtil.set", key, value);
+        logger.info("JedisUtil.set,key{},value{}", key, value);
     }
 
     /**
@@ -81,7 +79,7 @@ public class JedisUtil {
         String str = jds.get(key);
         jds.close();
 
-        logger.error("JedisUtil.get", key, str);
+        logger.info("JedisUtil.get,key{},value{}", key, str);
 
         return str;
     }

@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "com.limovue.aop",
         "com.limovue.propertiesClass",
         "com.limovue.common.propertiesClass"})
-@EntityScan(basePackages = {"com.limovue.domain", "com.emp.domain"})
+//@EntityScan(basePackages = {"com.limovue.domain", "com.emp.domain"})
 //启注解事务管理
 @EnableTransactionManagement
 @SpringBootApplication

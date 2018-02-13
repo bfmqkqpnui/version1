@@ -41,6 +41,16 @@ spring:
     serialization:
       indent_output: false
 
+  #配置消息中间件MQ
+  activemq:
+    # 消息代理路劲
+    broker-url: tcp://127.0.0.1:61616
+    user: admin
+    password: admin
+  jms:
+    #设置MQ发送模式  false:队列 true:广播
+    pub-sub-domain: true
+
 #mybatis配置  公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
 mybatis:
   type-aliases-package: com.emp.domain
@@ -50,3 +60,5 @@ mybatis:
 logging:
   #定义日志文件的存储地址
   file: log.log
+
+
