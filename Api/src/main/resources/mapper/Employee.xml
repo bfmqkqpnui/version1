@@ -35,4 +35,12 @@
             </if>
         </where>
     </update>-->
+
+    <!-- 批量新增 -->
+    <insert id="batchSave" >
+        INSERT INTO employee(name,gender,birthday,email,remark) VALUES
+        <foreach collection="emps" item="emp" separator=",">
+            (#{emp.name},#{emp.gender},#{emp.birthday},#{emp.email},#{emp.remark})
+        </foreach>
+    </insert>
 </mapper>

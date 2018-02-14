@@ -2,6 +2,7 @@ package com.emp.dao;
 
 import com.emp.domain.Employee;
 import com.emp.vo.QueryEmpParams;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -37,4 +38,12 @@ public interface EmployeeDao {
      * @return
      */
     int delById(Integer id);
+
+    /**
+     * 批量新增
+     *
+     * @param params
+     * @return
+     */
+    int batchSave(@Param("emps") List<QueryEmpParams> params);
 }
